@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/Users/hailong.zheng/tfs/PreService/app/storage'
+let g:netrw_dirhist_2='/Users/hailong.zheng/github/rima-account/sql'
+let g:netrw_dirhist_3='/Users/hailong.zheng/github/rima/rima-account/mixi-baas-common/lib/Rima/Common'
+let g:netrw_dirhist_4='/Users/hailong.zheng/.cpanm/sources/http%www.cpan.org'
+let g:netrw_dirhist_5='/Users/hailong.zheng/mixigit'
+let g:netrw_dirhist_6='/Users/hailong.zheng/mixigit/hailong'
+let g:netrw_dirhist_7='/Users/hailong.zheng/aws_rec_pj'
+let g:netrw_dirhist_8='/var/www/giftrend/app/views/account'
