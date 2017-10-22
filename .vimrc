@@ -1,149 +1,58 @@
-set t_Co=256
-"set mouse=a
-set ttymouse=xterm2
+set rtp+=/usr/local/opt/fzf
 
-set guifont=Ricty:h10:cUTF8
-" vim ¤ÎÆÈ¼«³ÈÄ¥µ¡Ç½¤ò»È¤¦(vi¤È¤Î¸ß´¹À­¤ò¤È¤é¤Ê¤¤)
-
-"set nocompatible
-
-" Ê¸»ú¥³¡¼¥É¤ò»ØÄê¤¹¤ë
-
-set encoding=utf-8
-
-" ¥Õ¥¡¥¤¥ë¥¨¥ó¥³¡¼¥É¤ò»ØÄê¤¹¤ë
-" /etc/vimrcÄêµÁºÑ¤ß
-set fileencodings=utf-8,euc-jp
-
-" ¼«Æ°Ç§¼±¤µ¤»¤ë²ş¹Ô¥³¡¼¥É¤ò»ØÄê¤¹¤ë
-
-set fileformats=unix,dos
-
-" ¥Ğ¥Ã¥¯¥¢¥Ã¥×¤ò¤È¤ë
-
-" µÕ¤Ï [ set nobackup ]
-
-set backup
-
-" ¥Ğ¥Ã¥¯¥¢¥Ã¥×¤òºî¤ë¥Ç¥£¥ì¥¯¥È¥ê¤ò»ØÄê¤¹¤ë
-
-set backupdir=~/backup
-
-" ¸¡º÷ÍúÎò¤ò50¸Ä»Ä¤¹
-
-set history=50
-
-" ¸¡º÷»ş¤ËÂçÊ¸»ú¾®Ê¸»ú¤ò¶èÊÌ¤·¤Ê¤¤
-
-"set ignorecase
-
-" ¸¡º÷¸ì¤ËÂçÊ¸»ú¤òº®¤¼¤ë¤È¸¡º÷»ş¤ËÂçÊ¸»ú¤ò¶èÊÌ¤¹¤ë
-
-set smartcase
-
-" ¸¡º÷¸ì¤Ë¥Ş¥Ã¥Á¤·¤¿Ã±¸ì¤ò¥Ï¥¤¥é¥¤¥È¤¹¤ë
-
-" µÕ¤Ï [ set nohlsearch ]
-
-set hlsearch
-
-" ¥¤¥ó¥¯¥ê¥á¥ó¥¿¥ë¥µ¡¼¥Á¤ò»È¤¦ ( ¸¡º÷¸ì¤òÆş¤ì¤Æ¤¤¤ëÅÓÃæ¤«¤é¿ï»ş¥Ş¥Ã¥Á¤¹¤ëÊ¸»úÎó¤Î¸¡º÷¤ò³«»Ï)
-
-" µÕ¤Ï [ set noincsearch ]
-
-set incsearch
-
-" ¹ÔÈÖ¹æ¤òÉ½¼¨¤¹¤ë
-
-" µÕ¤Ï [ set nonumber ]
-
-set number
-
-" ²ş¹Ô ( $ ) ¤ä¥¿¥Ö ( ^I ) ¤ò²Ä»ë²½¤¹¤ë
-
-"set list
-
-" ³ç¸ÌÆşÎÏ»ş¤ËÂĞ±ş¤¹¤ë³ç¸Ì¤ò¶¯Ä´¤¹¤ë
-
-set showmatch
-
-" ¹½Ê¸¤´¤È¤Ë¿§Ê¬¤±É½¼¨¤¹¤ë
-
-" µÕ¤Ï [ syntax off ]
-
+"---------------------------------
+" åŸºæœ¬è¨­å®š
+"---------------------------------
+set nocompatible
 syntax on
 
-" [ syntax on ] ¤Î¾ì¹ç¤Î¥³¥á¥ó¥ÈÊ¸¤Î¿§¤òÊÑ¹¹¤¹¤ë
+if !has('gui_running')
+  set t_Co=256
+endif
+
+set binary noeol
+set ttymouse=xterm2
+
+set encoding=utf-8
+set fileencodings=utf-8,euc-jp
+set fileformats=unix,dos
+
+set backup
+set backupdir=~/backup
+set history=50
+
+"set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+set number
+set showmatch
+
+""set cursorline
+""hi clear CursorLine
 
 highlight Comment ctermfg=LightCyan
-
-" ¿§
 "colorschem darkblue
 "colorschem zenburn 
-colorschem desert 
-
-" ¥¦¥£¥ó¥É¥¦Éı¤Ç¹Ô¤òÀŞ¤êÊÖ¤¹
-
-" µÕ¤Ï [ set nowrap ]
+colorschem desert
 
 set wrap
 
-"tabÀßÄê
-set expandtab
-set tabstop=4
-set shiftwidth=4
-
-" StatusLine
-set laststatus=2
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
-
-" indet guides
-hi IndentGuidesOdd  ctermbg=black
-hi IndentGuidesEven ctermbg=darkgrey
-
-" MAP
+"-------------------------
+" map
+"-------------------------
 vnoremap { "zdi{<C-R>z}<ESC>
 vnoremap [ "zdi[<C-R>z]<ESC>
 vnoremap ( "zdi(<C-R>z)<ESC>
 vnoremap " "zdi"<C-R>z"<ESC>
 vnoremap ' "zdi'<C-R>z'<ESC>
 
-" ¥¤¥ó¥µ¡¼¥È¥â¡¼¥ÉÈ´¤±¤¿¤éÆüËÜ¸ì¥â¡¼¥ÉOFF
-inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
-
-" insert¥â¡¼¥É¤«¤éÈ´¤±¤ë
-inoremap <silent> jj <ESC>
-inoremap <silent> <C-j> j
-inoremap <silent> kk <ESC>
-inoremap <silent> <C-k> k
-
-" ¹ÔÆ¬¡¦¹ÔËö°ÜÆ°Êı¸ş¤ò¥­¡¼¤ÎÁêÂĞ°ÌÃÖ¤Ë¤¢¤ï¤»¤ë
-nnoremap 0 $ 
-nnoremap 1 0 
-
-" ÁŞÆş¥â¡¼¥É¤Ç¤Î¥«¡¼¥½¥ë°ÜÆ°
-"inoremap <C-j> <Down>
-"inoremap <C-k> <Up>
-"inoremap <C-h> <Left>
-"inoremap <C-l> <Right>
-
-" ¥«¡¼¥½¥ëÁ°¤ÎÊ¸»úºï½ü
-inoremap <silent> <C-h> <C-g>u<C-h>
-" ¥«¡¼¥½¥ë¸å¤ÎÊ¸»úºï½ü
-inoremap <silent> <C-d> <Del>
-" ¥«¡¼¥½¥ë¤«¤é¹ÔÆ¬¤Ş¤Çºï½ü
-inoremap <silent> <C-d>e <Esc>lc^
-" ¥«¡¼¥½¥ë¤«¤é¹ÔËö¤Ş¤Çºï½ü
-inoremap <silent> <C-d>0 <Esc>lc$
-" ¥«¡¼¥½¥ë¤«¤é¹ÔÆ¬¤Ş¤Ç¥ä¥ó¥¯
-inoremap <silent> <C-y>e <Esc>ly0<Insert>
-" ¥«¡¼¥½¥ë¤«¤é¹ÔËö¤Ş¤Ç¥ä¥ó¥¯
-inoremap <silent> <C-y>0 <Esc>ly$<Insert>
-
-" °úÍÑÉä, ³ç¸Ì¤ÎÀßÄê
 inoremap { {}<Left>
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
+inoremap ( ()<ESC>i
+inoremap (<Enter> ()<Left><CR><ESC><S-o>
 inoremap [ []<Left>
-inoremap ( ()<Left>
 inoremap " ""<Left>
 inoremap ' ''<Left>
 inoremap <> <><Left>
@@ -151,59 +60,306 @@ inoremap <> <><Left>
 map <C-N>   :bnext<CR>
 map <C-P>   :bprevious<CR>
 
-"perlÀ°·Á
-""map ,ptv <Esc>:'<,'>! perltidy<CR>
-""map ,pt <Esc>:! perltidy<CR>
+"-------------------------
+" comment out
+"-------------------------
+nmap <C-K> <Plug>(caw:i:toggle)
+vmap <C-K> <Plug>(caw:i:toggle)
 
-"phpÀ°·Á
-map ,ptv <Esc>:'<,'>! phpStylist<CR>
-map ,pt <Esc>:PhpStylist<CR>
+"-------------------------
+" intendè¨­å®š
+"-------------------------
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set autoindent
+set smartindent
 
-"phpÊİ´É
-autocmd FileType php,ctp :set dictionary=~/.vim/dict/php.dict
-
-call pathogen#runtime_append_all_bundles()
-
-"ÆşÎÏ¥â¡¼¥É»ş¡¢¥¹¥Æ¡¼¥¿¥¹¥é¥¤¥ó¤Î¥«¥é¡¼¤òÊÑ¹¹
-augroup InsertHook
-autocmd!
-autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
-autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
+augroup fileTypeIndent
+    autocmd!
+    autocmd BufNewFile,BufRead *.md setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.sh setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.sql setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.py setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.rake setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.js setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.erb setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.jbuilder setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.php setlocal tabstop=4 softtabstop=4 shiftwidth=4
 augroup END
 
-"Á´³Ñ¥¹¥Ú¡¼¥¹¤ò»ë³Ğ²½
-highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
-au BufNewFile,BufRead * match ZenkakuSpace /¡¡/
+"-------------------------
+" æŒ¿å…¥ãƒ¢ãƒ¼ãƒ‰ã§ã®ã‚«ãƒ¼ã‚½ãƒ«ç§»å‹•
+"-------------------------
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
 
-""" Unite.vim
-" µ¯Æ°»ş¤Ë¥¤¥ó¥µ¡¼¥È¥â¡¼¥É¤Ç³«»Ï
+inoremap <silent> <C-a> <Esc>^<Insert>
+inoremap <silent> <C-e> <Esc>$<Insert><Right>
+inoremap <silent> <C-l> <Esc>$<Insert><Right> ;<Left><BS><Right> 
+
+"-------------------------
+" plugins 
+"-------------------------
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+"call vundle#begin('~/some/path/here')
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/vimfiler'
+Plugin 'Shougo/neomru.vim'
+Plugin 'Shougo/neocomplcache.vim'
+Plugin 'Shougo/neocomplete.vim'
+
+" markdown
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'kannokanno/previm'
+Plugin 'tyru/open-browser.vim'
+Plugin 'tyru/caw.vim.git'
+
+" javascript
+Plugin 'pangloss/vim-javascript'
+
+" css
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'ap/vim-css-color'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+"-------------------------
+" airline 
+"-------------------------
+set laststatus=2
+
+let g:airline_theme = 'jellybeans'
+
+" Use patched fonts
+let g:airline_powerline_fonts = 1
+
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" enable/disable fugitive/lawrencium integration
+let g:airline#extensions#branch#enabled = 1
+
+" enable/disable showing a summary of changed hunks under source control.
+let g:airline#extensions#hunks#enabled = 1
+
+" enable/disable showing only non-zero hunks.
+let g:airline#extensions#hunks#non_zero_only = 1
+
+let g:airline#extensions#whitespace#enabled = 0
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+"------------------------------
+" markdown file
+"------------------------------
+au BufRead,BufNewFile *.md set filetype=markdown
+set nofoldenable
+
+"------------------------------
+" vim-javascript
+"------------------------------
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+let g:javascript_plugin_flow = 1
+
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+
+let g:javascript_conceal_function             = "Æ’"
+let g:javascript_conceal_null                 = "Ã¸"
+let g:javascript_conceal_this                 = "@"
+let g:javascript_conceal_return               = "â‡š"
+let g:javascript_conceal_undefined            = "Â¿"
+let g:javascript_conceal_NaN                  = "â„•"
+let g:javascript_conceal_prototype            = "Â¶"
+let g:javascript_conceal_static               = "â€¢"
+let g:javascript_conceal_super                = "Î©"
+let g:javascript_conceal_arrow_function       = "â‡’"
+let g:javascript_conceal_noarg_arrow_function = ""
+let g:javascript_conceal_underscore_arrow_function = ""
+set conceallevel=1
+
+
+"------------------------------
+" css
+"------------------------------
+augroup VimCSS3Syntax
+  autocmd!
+
+  autocmd FileType css setlocal iskeyword+=-
+augroup END
+
+
+"------------------------------
+" NEDTREE
+"------------------------------
+map <C-t> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:NERDTreeDirArrowExpandable = 'â–¸'
+let g:NERDTreeDirArrowCollapsible = 'â–¾'
+
+"------------------------------
+"neocomplete setup
+"------------------------------
+highlight Pmenu ctermbg=4
+highlight PmenuSel ctermbg=1
+highlight PMenuSbar ctermbg=4
+
+set completeopt=menuone
+set completeopt=menuone
+
+let g:rsenseUseOmniFunc = 1
+let g:auto_ctags = 1
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_enable_camel_case_completion  =  1
+let g:neocomplcache_enable_auto_select = 1
+let g:neocomplcache_max_list = 20
+let g:neocomplcache_min_syntax_length = 3
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+
+let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+"----------------------------------------
+" neocomplcache
+"----------------------------------------
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_auto_completion_start_length = 2
+let g:neocomplcache_manual_completion_start_length = 3
+let g:neocomplcache_enable_ignore_case = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_min_keyword_length = 2
+
+let g:neocomplcache_enable_quick_match = 1
+let g:neocomplcache_max_list = 20
+let g:neocomplcache_dictionary_filetype_lists = {
+      \ 'default' : ''
+      \ }
+if !exists('g:neocomplcache_keyword_patterns')
+  let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns._ = '\h\w*'
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+
+"-----------------------------"
+"syntastic
+"-----------------------------
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+let g:syntastic_php_phpcs_args = '--standard=psr2'
+let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_mode_map = {
+  \ 'mode': 'active',
+  \ 'active_filetypes': [],
+  \ 'passive_filetypes': ['php', 'ruby', 'html', 'ts']
+  \}
+noremap <C-w>e :SyntasticCheck<CR>
+noremap <C-w>f :SyntasticToggleMode<CR>
+
+"------------------------------
+" Unite.vim
+"------------------------------
 let g:unite_enable_start_insert = 0
+" å¤§æ–‡å­—å°æ–‡å­—ã‚’åŒºåˆ¥ã—ãªã„
+let g:unite_enable_ignore_case = 1
+let g:unite_enable_smart_case = 1
+let g:unite_source_history_yank_enable = 1
+"let g:unite_enable_split_vertically = 1 "ç¸¦åˆ†å‰²ã§é–‹ã
+"let g:unite_winwidth = 80 "æ¨ªå¹…40ã§é–‹ã
+let g:unite_source_file_mru_filename_format = ''
 
-" ¥¤¥ó¥µ¡¼¥È¡¿¥Î¡¼¥Ş¥ë¤É¤Á¤é¤«¤é¤Ç¤â¸Æ¤Ó½Ğ¤»¤ë¤è¤¦¤Ë¥­¡¼¥Ş¥Ã¥×
 nnoremap <silent> <C-f> :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 inoremap <silent> <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> <C-b> :<C-u>Unite buffer file_mru<CR>
-inoremap <silent> <C-b> <ESC>:<C-u>Unite buffer file_mru<CR>
-
-" ¥Ğ¥Ã¥Õ¥¡°ìÍ÷
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-" ¥Õ¥¡¥¤¥ë°ìÍ÷
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-" ¥ì¥¸¥¹¥¿°ìÍ÷
+nnoremap <silent> <C-b> :<C-u>Unite file_mru buffer<CR>
+inoremap <silent> <C-b> <ESC>:<C-u>Unite file_mru buffer<CR>
+nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+" ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã®å˜èªã‚’grepæ¤œç´¢
+nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+ " grepæ¤œç´¢çµæœã®å†å‘¼å‡º
+nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
+nnoremap <silent> ,ub :<C-u>Unite file buffer<CR>
+nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
+""nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> ,uf :<C-u>Unite file<CR>
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-" ºÇ¶á»ÈÍÑ¤·¤¿¥Õ¥¡¥¤¥ë°ìÍ÷
 nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-" Á´Éô¾è¤»
 nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 
-" unite.vim¾å¤Ç¤Î¥­¡¼¥Ş¥Ã¥Ô¥ó¥°
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_max_candidates = 200
+  let g:unite_source_grep_recursive_opt = ''
+  let g:unite_source_grep_recursive_opt = ''
+endif
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
-  " Ã±¸ìÃ±°Ì¤«¤é¥Ñ¥¹Ã±°Ì¤Çºï½ü¤¹¤ë¤è¤¦¤ËÊÑ¹¹
   imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-  " ESC¥­¡¼¤ò2²ó²¡¤¹¤È½ªÎ»¤¹¤ë
   nmap <silent><buffer> <ESC><ESC> q
   imap <silent><buffer> <ESC><ESC> <ESC>q
 endfunction
-
-autocmd QuickFixCmdPost *grep* cwindow
