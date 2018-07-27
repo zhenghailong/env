@@ -1,6 +1,4 @@
-set rtp+=/usr/local/opt/fzf
-
-"---------------------------------
+" ---------------------------------
 " 基本設定
 "---------------------------------
 set nocompatible
@@ -17,8 +15,8 @@ set encoding=utf-8
 set fileencodings=utf-8,euc-jp
 set fileformats=unix,dos
 
-set backup
-set backupdir=~/backup
+""set backup
+""set backupdir=~/backup
 set history=50
 
 "set ignorecase
@@ -38,6 +36,10 @@ highlight Comment ctermfg=LightCyan
 colorschem desert
 
 set wrap
+
+" set clipboard+=unnamed
+" set clipboard+=unnamedplus,unnamed
+set clipboard=unnamed,autoselect
 
 "-------------------------
 " map
@@ -63,8 +65,8 @@ map <C-P>   :bprevious<CR>
 "-------------------------
 " comment out
 "-------------------------
-nmap <C-K> <Plug>(caw:i:toggle)
-vmap <C-K> <Plug>(caw:i:toggle)
+nmap <C-K> <Plug>(caw:hatpos:toggle)
+vmap <C-K> <Plug>(caw:hatpos:toggle)
 
 "-------------------------
 " intend設定
@@ -84,7 +86,8 @@ augroup fileTypeIndent
     autocmd BufNewFile,BufRead *.py setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.rake setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    autocmd BufNewFile,BufRead *.js setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.js setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.ts setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.erb setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.jbuilder setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.php setlocal tabstop=4 softtabstop=4 shiftwidth=4
@@ -102,53 +105,127 @@ inoremap <silent> <C-a> <Esc>^<Insert>
 inoremap <silent> <C-e> <Esc>$<Insert><Right>
 inoremap <silent> <C-l> <Esc>$<Insert><Right> ;<Left><BS><Right> 
 
+" viminfo
+" http://vimwiki.net/?%27viminfo%27
+set viminfo='50,\"1000,:0,n~/.vim/viminfo
+
 "-------------------------
 " plugins 
 "-------------------------
-set nocompatible              " be iMproved, required
-filetype off                  " required
+call plug#begin()
+Plug 'tpope/vim-sensible'
+Plug 'mileszs/ack.vim'
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-"call vundle#begin('~/some/path/here')
+" On-demand loading
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/vimfiler'
-Plugin 'Shougo/neomru.vim'
-Plugin 'Shougo/neocomplcache.vim'
-Plugin 'Shougo/neocomplete.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimfiler'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/neocomplcache.vim'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/vimproc', {'do' : 'make'}
+Plug 'Shougo/neoyank.vim'
+Plug 'tacroe/unite-mark'
+Plug 'vim-scripts/Visual-Mark'
+
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 
 " markdown
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'kannokanno/previm'
-Plugin 'tyru/open-browser.vim'
-Plugin 'tyru/caw.vim.git'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'kannokanno/previm'
+
+" comment out
+Plug 'tyru/caw.vim'
+Plug 'tyru/open-browser.vim'
 
 " javascript
-Plugin 'pangloss/vim-javascript'
-
+Plug 'pangloss/vim-javascript'
 " css
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'ap/vim-css-color'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'ap/vim-css-color'
+Plug 'leafgarland/typescript-vim'
+Plug 'tpope/vim-sensible'
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#end()
+
+let g:mapleader="\<Space>"
+
+" FZF
+nnoremap [Fzf] <Nop>
+nmap <Leader>f [Fzf]
+nnoremap [Fzf]f :<C-u>Files<CR>
+nnoremap [Fzf]b :<C-u>Buffers<CR>
+nnoremap [Fzf]g :<C-u>GFiles<CR>
+nnoremap [Fzf]G :<C-u>GFiles?<CR>
+nnoremap [Fzf]G :<C-u>GFiles?<CR>
+nnoremap [Fzf]G :<C-u>GFiles?<CR>
+nnoremap <Leader>a :Ag<CR>
+nnoremap <Leader>k :bd<CR>
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-v': 'vsplit' }
+
+" " Default fzf layout
+" " - down / up / left / right
+" let g:fzf_layout = { 'down': '~40%' }
+"
+" " In Neovim, you can set up fzf window using a Vim command
+" let g:fzf_layout = { 'window': 'enew' }
+" let g:fzf_layout = { 'window': '-tabnew' }
+" let g:fzf_layout = { 'window': '10split enew' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+"ack.vim
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+nmap [q :cnext<CR>
+nmap ]q :cprev<CR>
 
 "-------------------------
 " airline 
 "-------------------------
 set laststatus=2
 
-let g:airline_theme = 'jellybeans'
+" let g:airline_theme = 'jellybeans'
+" let g:airline_theme = 'molokai'
+let g:airline_theme = 'papercolor'
 
 " Use patched fonts
 let g:airline_powerline_fonts = 1
@@ -318,6 +395,12 @@ let g:syntastic_mode_map = {
 noremap <C-w>e :SyntasticCheck<CR>
 noremap <C-w>f :SyntasticToggleMode<CR>
 
+let g:typescript_indent_disable = 1
+let g:typescript_opfirst='\%([<=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+autocmd FileType typescript :set makeprg=tsc
+
 "------------------------------
 " Unite.vim
 "------------------------------
@@ -336,7 +419,7 @@ nnoremap <silent> <C-b> :<C-u>Unite file_mru buffer<CR>
 inoremap <silent> <C-b> <ESC>:<C-u>Unite file_mru buffer<CR>
 nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 " カーソル位置の単語をgrep検索
-nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+nnoremap <silent> ,ug :<C-u>Unite ag:. -buffer-name=search-buffer<CR><C-R><C-W>
  " grep検索結果の再呼出
 nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
 nnoremap <silent> ,ub :<C-u>Unite file buffer<CR>
@@ -356,6 +439,24 @@ if executable('ag')
 endif
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+
+if !exists('g:markrement_char')
+    let g:markrement_char = [
+    \     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+    \     'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+    \ ]
+endif
+nnoremap <silent>m :<C-u>call <SID>AutoMarkrement()<CR>
+function! s:AutoMarkrement()
+    if !exists('b:markrement_pos')
+        let b:markrement_pos = 0
+    else
+        let b:markrement_pos = (b:markrement_pos + 1) % len(g:markrement_char)
+    endif
+    execute 'mark' g:markrement_char[b:markrement_pos]
+    echo 'marked' g:markrement_char[b:markrement_pos]
+endfunction
+
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()

@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/home/bkapps/git/miximall/lib'
-let g:netrw_dirhist_2='/home/bkapps/git/hotitem_phase2/conf'
-let g:netrw_dirhist_3='/home/data/pageapps_topics/mixi-packages/packages/mixi/classes/emoji/converter'
-let g:netrw_dirhist_4='/home/bkapps/git/hotitem_emoji/lib/Apps/Emoji'
-let g:netrw_dirhist_5='/home/data/pageapps_topics/mixi-packages/packages/mixi/classes/emoji/converter'
-let g:netrw_dirhist_6='/home/bkapps/git/miximall_delete_pickup/lib/Mixi/Voice/FancyText'
-let g:netrw_dirhist_7='/home/bkapps/git/miximall_delete_pickup/lib/Mixi/PushNotify'
