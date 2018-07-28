@@ -35,5 +35,12 @@ vi ~/.vimrc
 # command mode でPlugInstallコマンド実行
 ```
 
+# git
+
+copy gitconfig to home directory.
+
+```
+cp gitconfig ~/.gitconfig
+```
 
 
