@@ -1,56 +1,86 @@
 # This is Git's per-user configuration file.
 [user]
 # Please adapt and uncomment the following lines:
-    name = hailong
-    mail = zhenghailong@gmail.com
-    email = zhenghailong@gmail.com
+  name = hailong
+  mail = zhenghailong@gmail.com
+  email = zhenghailong@gmail.com
 [core]
-    editor = vim
-    safecrlf = true
+  editor = vim
+  safecrlf = true
+  excludesfile = ~/.gitignore
+[browse-remote "github.com"]
+  top = https://{host}/{path}
+  ref = https://{host}/{path}/tree/{short_ref}
+  rev = https://{host}/{path}/commit/{commit}
+  pr = https://{host}/{path}/pull/{short_ref}
+  file = "https://{host}/{path}/{file.directory? and :tree or :blob}/{short_rev}/{file}{lines && \"#L%s\" % lines.join(\"-\")}"
+
 [alias]
+  aliass = !git config --get-regexp alias
+  me = !git config --get-regexp user
+
+  br = browse-remote
     # branch
-    b = branch
-
-    # status
-    st = status
-
-    # commit
-    cm = commit
-    cam = commit --amend
-    wip = commit -m 'wip'
-
-    # show
-    sh = show
-
-    # add
-    aa = !git add .  && git add -u && git status
-
-    # diff
-    ds = diff --cached
-    df = diff --name-only
-    dw = diff --word-diff
-    dp = diff --no-prefix
-    dsp = diff --cached --no-prefix
+  b = branch -a
 
     # checkout
-    co = checkout
+  co = checkout
 
-    # log
-    logg = log --graph --all --decorate
-    log0 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)― %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
-    log1 = log --oneline --graph
-    log2 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)― %an%C(reset)' --abbrev-commit
-    log3 = log --graph --pretty='format:%C(yellow)%h%Cblue%d%Creset %s %C(black bold)%an, %ar%Creset'
-    log4 = log --pretty='format:%C(yellow)%h%Creset %C(magenta)%cd%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset%C(black bold)%ar%Creset' --date=iso
-    lg = log --graph --pretty=format:'%Cred%h%Creset - %s%C(yellow)%d%Creset %Cgreen(%cr:%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=iso
-    lga = !"git lg --all"
-    # 変更行数
-    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    # commit
+  ci = commit
+  cam = commit --amend
+  wip = commit -m 'wip'
 
     # cherry pick
-    cp = cherry-pick
+  cp = cherry-pick
+
+    # reset
+  r = reset HEAD --
+  cancel  = reset --soft HEAD^
+
+    # status
+  s = status --short --branch
+  st = status
+
+    # show
+  sh = show
 
     # stash
-    s = stash
-    sp = stash pop
-    ss = stash save
+  ss = stash save
+  sp = stash pop
+  sl = stash list
+
+    # add
+  aa = !git add .  && git add -u && git status
+
+    # diff
+  d = diff
+  dc = diff --cached
+  di = diff
+  dic = diff --cached
+
+  d1 = diff HEAD~
+  d2 = diff HEAD~2
+  d3 = diff HEAD~3
+
+  df = diff --name-only
+  dw = diff --word-diff --ignore-all-space
+  dp = diff --no-prefix
+  dsp = diff --cached --no-prefix
+
+    # log
+  l = log --graph -n 10 --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(green)- %an, %cr%Creset'
+  ls = log --stat --abbrev-commit -n 1
+  ln = log --graph -n 10 --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(green)- %an, %cr%Creset' --name-status
+  lp = log --oneline -n 10 -p
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat -n 10
+
+  lg = log --graph --pretty=format:'%Cred%h%Creset - %s%C(yellow)%d%Creset %Cgreen(%cr:%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=iso
+  lga = !"git lg --all"
+
+  log0 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)― %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+  log1 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)― %an%C(reset)' --abbrev-commit
+  log2 = log --graph --pretty='format:%C(yellow)%h%Cblue%d%Creset %s %C(black bold)%an, %ar%Creset'
+  log3 = log --pretty='format:%C(yellow)%h%Creset %C(magenta)%cd%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset%C(black bold)%ar%Creset' --date=iso
+
+
