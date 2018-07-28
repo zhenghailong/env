@@ -1,0 +1,56 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+    name = hailong
+    mail = zhenghailong@gmail.com
+    email = zhenghailong@gmail.com
+[core]
+    editor = vim
+    safecrlf = true
+[alias]
+    # branch
+    b = branch
+
+    # status
+    st = status
+
+    # commit
+    cm = commit
+    cam = commit --amend
+    wip = commit -m 'wip'
+
+    # show
+    sh = show
+
+    # add
+    aa = !git add .  && git add -u && git status
+
+    # diff
+    ds = diff --cached
+    df = diff --name-only
+    dw = diff --word-diff
+    dp = diff --no-prefix
+    dsp = diff --cached --no-prefix
+
+    # checkout
+    co = checkout
+
+    # log
+    logg = log --graph --all --decorate
+    log0 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)― %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+    log1 = log --oneline --graph
+    log2 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)― %an%C(reset)' --abbrev-commit
+    log3 = log --graph --pretty='format:%C(yellow)%h%Cblue%d%Creset %s %C(black bold)%an, %ar%Creset'
+    log4 = log --pretty='format:%C(yellow)%h%Creset %C(magenta)%cd%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset%C(black bold)%ar%Creset' --date=iso
+    lg = log --graph --pretty=format:'%Cred%h%Creset - %s%C(yellow)%d%Creset %Cgreen(%cr:%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=iso
+    lga = !"git lg --all"
+    # 変更行数
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+
+    # cherry pick
+    cp = cherry-pick
+
+    # stash
+    s = stash
+    sp = stash pop
+    ss = stash save
