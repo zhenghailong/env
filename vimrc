@@ -1,7 +1,7 @@
 " ---------------------------------
 " 基本設定
 "---------------------------------
-set nocompatible
+" set nocompatible
 syntax on
 
 if !has('gui_running')
@@ -19,6 +19,8 @@ set fileformats=unix,dos
 ""set backupdir=~/backup
 set history=50
 
+hi
+set ignorecase
 "set ignorecase
 set smartcase
 set hlsearch

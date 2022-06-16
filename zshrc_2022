@@ -1,0 +1,146 @@
+# 日本語を使用
+export LANG=ja_JP.UTF-8
+
+# color
+export TERM=xterm-256color
+autoload -Uz colors && colors
+
+# cdコマンドを省略して、ディレクトリ名のみの入力で移動
+setopt auto_cd
+
+# 自動でpushdを実行
+setopt auto_pushd
+
+# pushdから重複を削除
+setopt pushd_ignore_dups
+
+# コマンドミスを修正
+setopt correct
+
+# cdの後にlsを実行
+chpwd() { ls -G }
+
+# Ctrl+sのロック, Ctrl+qのロック解除を無効にする
+setopt no_flow_control
+
+# ssh-agentで鍵をもっていく
+ssh-add -l 2>&1 > /dev/null
+if [ $? -ne 0 ]; then
+  ssh-add /Users/zhengh14/.ssh/id_rsa
+fi
+
+zstyle ":completion:*:commands" rehash 1
+
+# path
+typeset -U path PATH
+path=(
+  /opt/homebrew/bin(N-/)
+  /opt/homebrew/sbin(N-/)
+  /usr/bin
+  /usr/sbin
+  /bin
+  /sbin
+  /usr/local/bin(N-/)
+  /usr/local/sbin(N-/)
+  /Library/Apple/usr/bin
+)
+
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source $(brew --prefix)/opt/zsh-git-prompt/zshrc.sh
+  autoload -Uz compinit
+  compinit
+fi
+
+# prompt
+git_prompt() {
+  if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = true ]; then
+    PROMPT='%F{034}%n%f %F{036}%m %D %*%f:%F{020}%~%f $(git_super_status)'
+    PROMPT+=""$'\n'"%# "
+  else
+    PROMPT="%F{034}%n%f %F{036}%m %D %*%f:%F{020}%~%f "$'\n'"%# "
+  fi
+}
+
+add_newline() {
+  if [[ -z $PS1_NEWLINE_LOGIN ]]; then
+    PS1_NEWLINE_LOGIN=true
+  else
+    printf '\n'
+  fi
+}
+
+precmd() {
+  git_prompt
+  add_newline
+}
+
+# .DS_Store
+tgz() {
+  env COPYFILE_DISABLE=1 tar zcvf $1 --exclude=".DS_Store" ${@:2}
+}
+
+# history search
+export HISTFILE=$HOME/.zsh_history
+export HISTSIZE=100000
+export SAVEHIST=100000
+
+setopt hist_expire_dups_first
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_save_no_dups
+setopt share_history
+
+function select-history() {
+  BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
+  CURSOR=$#BUFFER
+}
+zle -N select-history
+bindkey '^r' select-history
+
+# cdrコマンドを有効 ログアウトしても有効なディレクトリ履歴
+# cdr tabでリストを表示
+autoload -Uz add-zsh-hook
+autoload -Uz chpwd_recent_dirs cdr
+add-zsh-hook chpwd chpwd_recent_dirs
+
+# cdrコマンドで履歴にないディレクトリにも移動可能に
+zstyle ":chpwd:*" recent-dirs-default true
+
+# alias
+# -G で色を付ける (GNU/Linux での "--color=auto" と等価)
+alias ls="ls -G"
+
+alias la="ls -a"
+alias ll="ls -l"
+alias lla="ls -la"
+
+alias cp='cp -i'
+alias rm='rm -i'
+alias mkdir='mkdir -p'
+alias c='cdr'
+alias ..='c ../'
+alias back='pushd'
+alias diff='diff -U1'
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
+
+# python env
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init -)"
+
+# ruby env
+eval "$(rbenv init -)"
+
+# nodejs env
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# java env
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`

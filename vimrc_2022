@@ -1,0 +1,290 @@
+" ---------------------------------
+" 基本設定
+"---------------------------------
+syntax on
+set encoding=utf-8
+set fileencodings=utf-8,euc-jp
+set fileformats=unix,dos
+
+set number
+
+" 検索でカレント以下にする
+set path+=$PWD/**
+
+" 編集中でもファイルを開けるように
+set hidden
+
+" 他で編集したファイルを自動で再読み込み
+set autoread
+
+" スクロール時の余白行数
+set scrolloff=5
+set sidescrolloff=6
+
+" バックスペースでなんでも消せるように
+set backspace=indent,eol,start
+
+" テキスト整形オプション 自動コメントアウト無効
+set formatoptions=lmq
+autocmd Filetype * setlocal formatoptions-=ro
+
+" コマンドをステータスに表示
+set showcmd
+
+set nocompatible
+
+" 改行の自動付与を無効にする
+set binary noeol
+
+" swpファイル出力先
+" set directory=~/.vimfile/
+
+""set backup
+""set backupdir=~/backup
+set history=100
+
+" set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+set showmatch
+
+" set cursorline
+" hi clear CursorLine
+
+highlight Comment ctermfg=LightCyan
+"colorschem darkblue
+"colorschem zenburn
+colorschem desert
+
+" 自動改行
+set wrap
+
+" set clipboard+=unnamed
+" set clipboard+=unnamedplus,unnamed
+set clipboard=unnamed,autoselect
+
+" undofile
+" set undofile
+
+" タブライン表示
+" set showtabline=2
+
+"bomb作らない
+set nobomb
+
+"leaderをspaceに
+let mapleader="\<Space>"
+
+"ステータス常時見せる
+set laststatus=0
+set statusline=%F         " ファイル名表示
+set statusline+=%m        " 変更のチェック表示
+set statusline+=%r        " 読み込み専用かどうか表示
+set statusline+=%h        " ヘルプページなら[HELP]と表示
+set statusline+=%w\       " プレビューウインドウなら[Prevew]と表示
+set rulerformat=%40(%1*%=%l,%-(%c%V%)\ %=%t%)%*
+
+" ピープ音停止
+set noerrorbells visualbell t_vb=
+
+" viminfo
+" http://vimwiki.net/?%27viminfo%27
+set viminfo='50,\"1000,:0,n~/.vim/viminfo
+
+"-------------------------
+" map
+"-------------------------
+"カッコ補完: { ( [
+inoremap { {}<Left>
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
+inoremap () ()
+inoremap ( ()<ESC>i
+inoremap (<Enter> ()<Left><CR><ESC><S-o>
+inoremap [ []<ESC>i
+inoremap [<Enter> []<Left><CR><ESC><S-o>
+
+"補完: ' " <
+inoremap '' ''
+inoremap ' ''<ESC>i
+inoremap "" ""
+inoremap " ""<ESC>i
+inoremap < <><ESC>i
+
+"インサートモードのままカーソル移動
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+
+inoremap <C-e> <Esc>$a
+inoremap <C-a> <Esc>^i
+noremap <C-e> <Esc>$a
+noremap <C-a> <Esc>^i
+
+map <C-N>   :bnext<CR>
+map <C-P>   :bprevious<CR>
+
+" comment out
+nmap <C-K> <Plug>(caw:hatpos:toggle)
+vmap <C-K> <Plug>(caw:hatpos:toggle)
+
+"-------------------------
+" intend設定
+"-------------------------
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set autoindent
+set smartindent
+
+augroup fileTypeIndent
+    autocmd!
+    autocmd BufNewFile,BufRead *.md setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.sh setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.sql setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.py setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.rake setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.js setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.ts setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.erb setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.jbuilder setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.php setlocal tabstop=4 softtabstop=4 shiftwidth=4
+augroup END
+
+" fzf
+set rtp+=/opt/homebrew/opt/fzf
+
+"-------------------------
+" plugins 
+"-------------------------
+call plug#begin()
+
+" git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+
+" fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" comment out
+Plug 'tyru/caw.vim'
+Plug 'tyru/open-browser.vim'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" 補完
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+call plug#end()
+
+"-------------------------
+" fzf
+"-------------------------
+nnoremap <Leader>f :FZF<CR>
+nnoremap <Leader>r :Rg
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>w :Windows<CR>
+nnoremap <Leader>h :History<CR>
+nnoremap <Leader>g :GFiles<CR>
+nnoremap <Leader>k :bd<CR>
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-v': 'vsplit' }
+
+" " Default fzf layout
+" " - down / up / left / right
+" let g:fzf_layout = { 'down': '~40%' }
+"
+" " In Neovim, you can set up fzf window using a Vim command
+" let g:fzf_layout = { 'window': 'enew' }
+" let g:fzf_layout = { 'window': '-tabnew' }
+" let g:fzf_layout = { 'window': '10split enew' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+"-------------------------
+" vim-fugitive
+"-------------------------
+"set diffopt+=vertical
+nn <Leader>gd :Gdiff<CR>
+nn <Leader>ga :Gwrite<CR>
+nn <Leader>gb :Git blame<CR>
+nn <Leader>gs :Git status<CR>
+nn <Leader>du :diffupdate<CR>
+nn <Leader>gm :Gdiffsplit!<CR>
+nn <Leader>dp :diffput 1 \| diffupdate<CR>
+nn <Leader>dgl :diffget //2 \| diffupdate<CR>
+nn <Leader>dgr :diffget //3 \| diffupdate<CR>
+
+set updatetime=250
+let g:gitgutter_highlight_lines = 0
+let g:gitgutter_override_sign_column_highlight = 0
+" highlight SignColumn ctermbg=brown
+
+"-------------------------
+" airline 
+"-------------------------
+set laststatus=2
+
+let g:airline_theme = 'jellybeans'
+" let g:airline_theme = 'molokai'
+" let g:airline_theme = 'papercolor'
+
+" Use patched fonts
+let g:airline_powerline_fonts = 1
+
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" enable/disable fugitive/lawrencium integration
+let g:airline#extensions#branch#enabled = 1
+
+" enable/disable showing a summary of changed hunks under source control.
+let g:airline#extensions#hunks#enabled = 1
+
+" enable/disable showing only non-zero hunks.
+let g:airline#extensions#hunks#non_zero_only = 1
+
+let g:airline#extensions#whitespace#enabled = 0
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
